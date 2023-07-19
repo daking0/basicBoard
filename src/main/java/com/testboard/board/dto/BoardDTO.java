@@ -46,6 +46,16 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getCreatedTime());
+        if(boardDTO.getFileAttached() == 0) {
+            boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0
+        } else {
+            boardDTO.setFileAttached(boardEntity.getFileAttached()); // 1
+            // 파일 이름을 가져가야 한다.
+            // 지정한 로컬 파일 내에서 해당 파일 이름의 파일을 detail.html에서 읽는다
+            // 실제 파일 이름은 board_file_entity에 들어있다.
+            boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
+            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
+        }
         return boardDTO;
     }
 }
